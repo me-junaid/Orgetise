@@ -200,7 +200,7 @@ export default function ChatModal({
   return (
     <>
       <div
-        className="fixed-screen"
+        className="fixed inset-0 z-[2999] bg-[#fafafab7] backdrop-blur-[10px]"
         id="fixed-screen"
         onClick={onClose}
         style={{ display: "block" }}
@@ -208,29 +208,28 @@ export default function ChatModal({
       ></div>
 
       <div
-        className="chat-field"
+        className="fixed z-[3000] max-w-[450px] mx-auto rounded-[20px] max-[460px]:rounded-none max-[460px]:inset-0 inset-[10px] bg-[#e5ffe5] border-[10px] border-[#e5ffe5] flex flex-col"
         id="chat-field"
         style={{ display: "flex" }}
         role="dialog"
         aria-modal="true"
         aria-label="Orgetise AI Chat"
       >
-        <div className="chat-field-header">
-          <div className="header-icon" aria-hidden="true"></div>
-          <h3>Orgetise AI</h3>
+        <div className="h-[60px] bg-[#e5ffe5] flex items-center shrink-0">
+          <div className="w-[40px] h-[40px] mx-[10px] mr-[5px] rounded-full bg-cover bg-white bg-[url(/orgetise.png)]" aria-hidden="true"></div>
+          <h3 className="font-medium text-black text-[18px]">Orgetise AI</h3>
           <i
             id="chat-field-close"
-            className="bi bi-x"
+            className="bi bi-x ml-auto mr-[15px] inline-block text-[25px] cursor-pointer text-black"
             onClick={onClose}
             role="button"
             aria-label="Close chat"
-            style={{ cursor: "pointer" }}
           ></i>
         </div>
 
-        <div className="chat-content" id="chat-content" ref={chatContentRef}>
+        <div className="grow flex flex-col gap-[10px] p-[10px] overflow-y-auto scroll-smooth rounded-[15px] bg-white" id="chat-content" ref={chatContentRef}>
           {messages.length === 0 && (
-            <div className="chat-assist">
+            <div className="py-[15px] px-[25px] w-auto max-w-[70%] min-w-[60px] rounded-[10px] shrink-0 overflow-x-auto bg-[rgb(250,252,250)] text-black text-[15px]">
               <p>Hi there! How can I assist you with our AI services today?</p>
             </div>
           )}
@@ -238,13 +237,18 @@ export default function ChatModal({
           {messages.map((msg) => (
             <div
               key={msg.id}
-              className={msg.role === "user" ? "chat-user" : "chat-assist"}
+              className={
+                msg.role === "user"
+                  ? "py-[15px] px-[25px] w-auto max-w-[70%] min-w-[60px] ml-auto rounded-[10px] shrink-0 overflow-x-auto bg-[#e5ffe5] text-black text-[15px] first:mt-auto"
+                  : "py-[15px] px-[25px] w-auto max-w-[70%] min-w-[60px] rounded-[10px] shrink-0 overflow-x-auto bg-[rgb(250,252,250)] text-black text-[15px]"
+              }
             >
               <div dangerouslySetInnerHTML={{ __html: msg.content }} />
 
               {msg.isForm && (
                 <form
                   id="chat-submit-form"
+                  className="flex flex-col gap-[10px] py-[10px]"
                   onSubmit={(e) => handleBookingSubmit(e, msg.id)}
                   style={{
                     opacity: msg.formSubmitted ? 0.5 : 1,
@@ -256,6 +260,7 @@ export default function ChatModal({
                     type="text"
                     id="chat-submit-name"
                     placeholder="Name"
+                    className="py-[10px] px-[18px] rounded-[10px] border border-[rgb(0,77,0)] bg-white text-black focus:outline-none"
                     value={formData.name}
                     onChange={(e) =>
                       setFormData({ ...formData, name: e.target.value })
@@ -268,6 +273,7 @@ export default function ChatModal({
                     type="tel"
                     id="chat-submit-phone"
                     placeholder="Phone"
+                    className="py-[10px] px-[18px] rounded-[10px] border border-[rgb(0,77,0)] bg-white text-black focus:outline-none"
                     value={formData.phone}
                     onChange={(e) =>
                       setFormData({ ...formData, phone: e.target.value })
@@ -278,6 +284,7 @@ export default function ChatModal({
                   <input
                     type="date"
                     id="chat-submit-date"
+                    className="py-[10px] px-[18px] rounded-[10px] border border-[rgb(0,77,0)] bg-white text-black focus:outline-none"
                     value={formData.date}
                     onChange={(e) =>
                       setFormData({ ...formData, date: e.target.value })
@@ -288,6 +295,7 @@ export default function ChatModal({
                   <input
                     type="time"
                     id="chat-submit-time"
+                    className="py-[10px] px-[18px] rounded-[10px] border border-[rgb(0,77,0)] bg-white text-black focus:outline-none"
                     value={formData.time}
                     onChange={(e) =>
                       setFormData({ ...formData, time: e.target.value })
@@ -299,6 +307,7 @@ export default function ChatModal({
                     autoComplete="off"
                     type="submit"
                     id="chat-submit-button"
+                    className="py-[10px] px-[18px] rounded-[10px] border border-[rgb(0,77,0)] bg-[rgb(0,77,0)] text-white text-center cursor-pointer hover:text-[#e5ffe5] hover:opacity-90 transition-opacity"
                     value={msg.formSubmitted ? "Booked" : "Submit"}
                     disabled={msg.formSubmitted}
                   />
@@ -313,18 +322,19 @@ export default function ChatModal({
           ))}
 
           {isThinking && (
-            <div className="chat-assist" style={{ opacity: 0.6 }}>
+            <div className="py-[15px] px-[25px] w-auto max-w-[70%] min-w-[60px] rounded-[10px] shrink-0 overflow-x-auto bg-[rgb(250,252,250)] text-black text-[15px]" style={{ opacity: 0.6 }}>
               Thinking...
             </div>
           )}
         </div>
 
-        <div className="chat-field-input">
+        <div className="flex items-center shrink-0 h-auto bg-[#e5ffe5]">
           <textarea
             ref={inputRef}
             placeholder="Message Orgetise"
             autoComplete="off"
             id="chat-input"
+            className="grow m-[15px] ml-[30px] mr-0 bg-transparent border-none outline-none resize-none text-black placeholder:text-black/50"
             value={inputValue}
             onChange={(e) => {
               setInputValue(e.target.value);
@@ -340,13 +350,12 @@ export default function ChatModal({
             }}
           ></textarea>
           <div
-            className="chat-field-input-send"
+            className="self-end m-[10px] w-[40px] aspect-square flex justify-center items-center rounded-full bg-white cursor-pointer"
             onClick={() => sendMessage(inputValue)}
-            style={{ cursor: "pointer" }}
             role="button"
             aria-label="Send message"
           >
-            <i className="bi bi-arrow-up"></i>
+            <i className="bi bi-arrow-up inline-block text-[23px] text-black"></i>
           </div>
         </div>
       </div>

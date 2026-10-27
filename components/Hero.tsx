@@ -10,17 +10,18 @@ export default function Hero({ onScrollTo }: HeroProps) {
   const businessText = "r business";
 
   return (
-    <section className="hero-section">
-      <div className="hero-animated" aria-hidden="true">
+    <section className="hero-section flex w-screen flex-col justify-center items-center h-auto relative overflow-hidden py-[4vh] pt-[calc(60px+4vh)]">
+      <div className="absolute inset-0 -z-[99]" aria-hidden="true">
         <svg
           viewBox="0 0 1440 490"
           xmlns="http://www.w3.org/2000/svg"
-          className="transition duration-300 ease-in-out delay-150"
+          preserveAspectRatio="none"
+          className="transition duration-300 ease-in-out delay-150 w-full h-full"
         >
           <style dangerouslySetInnerHTML={{
             __html: `
             .path-0 {
-              animation: pathAnim-0 4s;
+              animation: pathAnim-0 10s;
               animation-timing-function: linear;
               animation-iteration-count: infinite;
             }
@@ -59,7 +60,7 @@ export default function Hero({ onScrollTo }: HeroProps) {
           <style dangerouslySetInnerHTML={{
             __html: `
             .path-1 {
-              animation: pathAnim-1 4s;
+              animation: pathAnim-1 10s;
               animation-timing-function: linear;
               animation-iteration-count: infinite;
             }
@@ -98,12 +99,10 @@ export default function Hero({ onScrollTo }: HeroProps) {
         </svg>
       </div>
 
-      <h1>
-        <span className="main-linear">AI</span> that converts
-        <span className="coma">,</span>
-        <span className="main-linear"> Marketing</span> that works
+      <h1 className="py-[10px] px-[20px] text-[35px] max-w-[60vw] min-[825px]:text-[65px] min-[825px]:max-w-[800px] text-center">
+        <span className="main-linear">Technology</span> That Works as Hard as You Do.
       </h1>
-      <h3>
+      <h3 className="font-normal py-[10px] px-[20px] opacity-60 text-center">
         Automating repetitive tasks, boosting productivity, and helping you
         <span id="typingno2">
           {businessText.split("").map((char, index) => (
@@ -113,15 +112,15 @@ export default function Hero({ onScrollTo }: HeroProps) {
         grow faster with smart solutions
       </h3>
 
-      <div className="hero-section-buttons" id="hero-main-section">
+      <div className="flex py-[10px] px-[20px] pb-[30px] gap-[10px] select-none flex-wrap justify-center z-[1]" id="hero-main-section">
         <button
-          className="hero-main-button"
+          className="text-[16px] font-semibold bg-[rgb(0,77,0)] text-white py-[10px] px-[20px] rounded-full border border-black cursor-pointer text-center"
           onClick={() => onScrollTo("find-the-build-textarea")}
         >
           Explore, it&apos;s free
         </button>
         <button
-          className="hero-sales-button"
+          className="text-[16px] rounded-full bg-[rgb(0,77,0,.05)] font-normal py-[10px] px-[20px] cursor-pointer text-center"
           onClick={() => onScrollTo("find-the-build-textarea")}
         >
           Contact sales

@@ -86,12 +86,13 @@ export default function TuneYourAi({ onScrollTo }: TuneYourAiProps) {
 
   return (
     <>
-      <h1 id="tune-head" className="the-subheadings gsap-emt">
+      <h1 id="tune-head" className="gsap-emt text-[40px] min-[825px]:text-[55px] mt-[50px] min-[825px]:mt-[70px] text-center min-[825px]:text-left min-[825px]:ml-[calc(6vw+20px)] opacity-80 ">
         Try <span className="linear">Tune</span> your AI
       </h1>
-      <div className="tune-your-ai gsap-emt">
+      <div className="gsap-emt flex flex-col my-[100px] mt-[10px] px-[20px] min-[825px]:px-[6vw] min-[825px]:pl-[calc(6vw+10px)]">
         <textarea
           id="tune-textarea"
+          className="grow resize-none p-[20px] rounded-[15px] h-[calc(50vh-20px)] min-[825px]:h-[50vh] focus:outline-none border-[25px] border-[hsl(120,100%,95%)] bg-white"
           placeholder={`Knowledge base here... \n\nYou are a helpful assist for [Organisation name]. [Overview about the Organisation].\n`}
           maxLength={1000}
           value={knowledgeBase}
@@ -100,12 +101,12 @@ export default function TuneYourAi({ onScrollTo }: TuneYourAiProps) {
         ></textarea>
 
         <div
-          className="test-your-build"
+          className="grow p-[10px] min-[825px]:p-[20px] rounded-[15px] h-[50vh] flex-col relative bg-[rgb(250,252,250)] border border-transparent"
           id="test-your-build"
           style={{ display: isTestMode ? "flex" : "none" }}
         >
           <div
-            className="close-test-your-build"
+            className="absolute top-[7px] min-[825px]:top-[10px] right-[7px] min-[825px]:right-[10px] cursor-pointer text-[25px] w-[25px] h-[25px] min-[825px]:w-[30px] min-[825px]:h-[30px] rounded-full flex justify-center items-center bg-[rgb(250,252,250)] border border-[#e5ffe5]"
             onClick={handleSwitchToTune}
             role="button"
             aria-label="Close test mode"
@@ -113,31 +114,32 @@ export default function TuneYourAi({ onScrollTo }: TuneYourAiProps) {
             <i className="bi bi-x"></i>
           </div>
 
-          <div className="test-response" id="test-response" ref={testResponseRef}>
-            <img src="/orgetise.png" alt="Orgetise" draggable={false} />
-            <h1 id="para-test-response">Start messaging your AI</h1>
-            <p>reminder: this is for the testing purpose, not the advanced one.</p>
+          <div className="grow rounded-[10px] mb-[10px] p-[10px] px-[20px] bg-white flex flex-col overflow-y-auto scroll-smooth" id="test-response" ref={testResponseRef}>
+            <img src="/orgetise.png" alt="Orgetise" draggable={false} className="w-[50px] mx-auto mt-auto select-none" />
+            <h1 id="para-test-response" className="text-[23px] min-[825px]:text-[2rem] mx-auto text-center opacity-60 text-[rgb(0,77,0)] font-semibold">Start messaging your AI</h1>
+            <p className="text-[12px] min-[825px]:text-[14px] text-center opacity-40 mb-auto">reminder: this is for the testing purpose, not the advanced one.</p>
 
-            <div className="test-response-chat" id="test-response-chat">
+            <div className="flex flex-col gap-[10px] mt-[30px]" id="test-response-chat">
               {testChat.map((msg, idx) => (
                 <div
                   key={idx}
-                  className={msg.role === "user" ? "test-user-chat" : "test-assist-chat"}
+                  className={msg.role === "user" ? "max-w-[70%] ml-auto py-[15px] px-[30px] rounded-[10px] bg-[#e5ffe5]" : "py-[15px] px-0"}
                   dangerouslySetInnerHTML={{ __html: msg.content }}
                 />
               ))}
               {isLoading && (
-                <div className="test-assist-chat">
+                <div className="py-[15px] px-0">
                   <em>Thinking...</em>
                 </div>
               )}
             </div>
           </div>
 
-          <div className="test-input">
+          <div className="flex shrink-0">
             <input
               id="test-input"
               ref={testInputRef}
+              className="grow py-[10px] px-[15px] min-[825px]:px-[20px] min-[825px]:pl-[4vw] h-[30px] rounded-[10px] focus:outline-none border-2 border-[rgb(250,252,250)] bg-white placeholder:font-medium"
               placeholder="Enter your test INPUT here..."
               autoComplete="off"
               value={testInput}
@@ -150,23 +152,23 @@ export default function TuneYourAi({ onScrollTo }: TuneYourAiProps) {
               }}
             />
             <div
-              className="test-input-send"
+              className="self-center ml-[6px] w-[45px] h-[45px] rounded-full flex justify-center items-center bg-[#e5ffe5] cursor-pointer"
               id="test-input-send"
               onClick={handleSendTestMessage}
-              style={{ cursor: "pointer" }}
               role="button"
               aria-label="Send test query"
             >
-              <i className="bi bi-arrow-up"></i>
+              <i className="bi bi-arrow-up text-[24px]"></i>
             </div>
           </div>
         </div>
 
-        <div className="input-for-tuned-ai" id="input-for-tuned-ai">
-          <div className="tune-buttons">
+        <div className="flex items-center flex-col-reverse" id="input-for-tuned-ai">
+          <div className="grow h-[50px] border-none flex items-center gap-[20px]">
             <button
               onClick={handleSwitchToTest}
               id="tune-test-button"
+              className="h-[40px] px-[14px] rounded-[10px] border-none font-medium w-[110px] cursor-pointer transition-colors"
               style={{
                 backgroundColor: isTestMode
                   ? "lightgreen"
@@ -177,6 +179,7 @@ export default function TuneYourAi({ onScrollTo }: TuneYourAiProps) {
             </button>
             <button
               id="integrate-build"
+              className="h-[40px] px-[14px] rounded-[10px] border-none font-medium w-[110px] cursor-pointer bg-[rgba(140,140,140,0.11)]"
               onClick={() => onScrollTo("find-the-build-textarea")}
             >
               Integrate

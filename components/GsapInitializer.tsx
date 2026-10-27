@@ -10,9 +10,9 @@ export default function GsapInitializer() {
 
     const ctx = gsap.context(() => {
       // Entrance animations
-      gsap.set([".hero-section", ".main-1 .columns"], { opacity: 0, y: 20 });
+      gsap.set([".hero-section", "#product-list .product-card"], { opacity: 0, y: 20 });
 
-      gsap.to([".hero-section", ".main-1 .columns"], {
+      gsap.to([".hero-section", "#product-list .product-card"], {
         opacity: 1,
         y: 0,
         delay: 0.3,
@@ -89,36 +89,36 @@ export default function GsapInitializer() {
       mm.add("(min-width: 825px)", () => {
         const tl = gsap.timeline({
           scrollTrigger: {
-            trigger: ".input",
+            trigger: "#banner-input-box",
             start: "bottom 90%",
             end: "bottom 70%",
             scrub: 1,
           },
         });
 
-        tl.to(".columns-1", { width: 0, opacity: 0 })
-          .to(".columns-1 h1", { autoAlpha: 0 }, "<")
+        tl.to("#column-1", { width: 0, opacity: 0 })
+          .to("#column-1 h1", { autoAlpha: 0 }, "<")
           .to(
-            ".columns-2",
+            "#column-2",
             { flexGrow: 1, backgroundColor: "white", marginRight: "30px" },
             "<"
           )
           .to(
-            ".input",
+            "#banner-input-box",
             {
               backgroundColor: "#d4edda",
               boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.05)",
             },
             "<"
           )
-          .to(".columns-2 .input textarea", { width: "50vw" }, "<");
+          .to("#banner-input-box textarea", { width: "50vw" }, "<");
       });
 
       mm.add("(max-width: 824px)", () => {
-        gsap.to(".input", {
+        gsap.to("#banner-input-box", {
           backgroundColor: "#d4edda",
           scrollTrigger: {
-            trigger: ".input",
+            trigger: "#banner-input-box",
             start: "0px 80%",
             end: "0px 30%",
             scrub: 1,

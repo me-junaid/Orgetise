@@ -151,29 +151,28 @@ export default function ProductSlider() {
 
   return (
     <>
-      <div className="rows main-1 project-scroll-wrapper" id="product-list" ref={scrollRef}>
+      <div className="flex overflow-x-scroll overflow-y-hidden gap-[10px] min-[825px]:gap-[30px] mb-[10px] pr-[20px] pl-[15px] min-[825px]:pl-[calc(6vw+10px)] h-auto min-[825px]:h-[360px] snap-x snap-mandatory" id="product-list" ref={scrollRef}>
         {PRODUCTS.map((prod) => {
           const userQuery = queries[prod.id] || "";
           const aiResponse = responses[prod.id] || "";
           const expanded = isExpanded[prod.id];
 
           return (
-            <div className="columns" key={prod.id}>
-              <div className="service-logo">
-                <img draggable={false} src={prod.imgSrc} alt={prod.title} loading="lazy" />
+            <div className="product-card snap-center mt-[2px] min-[825px]:mt-[20px] rounded-[27px] min-[825px]:rounded-[30px] flex flex-col min-[825px]:flex-row shrink-0 bg-[rgb(250,252,250)] w-[90vw] min-[825px]:w-[80vw] min-w-0 min-[825px]:min-w-[800px] max-w-[300px] min-[825px]:max-w-none overflow-hidden last:mr-[500px] translate-y-[100px] opacity-0" key={prod.id}>
+              <div className="aspect-square shrink-0 flex rounded-[5px] min-[825px]:rounded-[15px] self-center justify-center select-none overflow-hidden mt-[15px] min-[825px]:mt-0 ml-0 min-[825px]:ml-[20px] w-[270px] h-[270px] min-[825px]:w-[300px] min-[825px]:h-[300px] bg-[rgb(250,252,250)] min-[825px]:bg-white">
+                <img draggable={false} src={prod.imgSrc} alt={prod.title} loading="lazy" className="w-full h-full object-cover rounded-[5px]" />
               </div>
 
-              <div className="services">
-                <div className="service-title">
-                  <h1 id={prod.titleId}>
+              <div className="grow p-[10px] flex flex-col overflow-hidden">
+                <div className="flex-grow-0 min-[825px]:grow flex flex-col justify-start min-[825px]:justify-center items-start min-[825px]:items-center shrink-0 mx-[10px] min-[825px]:mx-0">
+                  <h1 id={prod.titleId} className="text-[22px] min-[825px]:text-[40px] shrink-0 text-left min-[825px]:text-center whitespace-nowrap text-ellipsis max-w-[250px] min-[825px]:max-w-none w-[75vw] min-[825px]:w-auto">
                     <span className="linear res-linear">{prod.title}</span>
-                    {prod.titleId && <span className="r-opacity"></span>}
                   </h1>
-                  <p>{prod.subtitle}</p>
+                  <p className="shrink-0 text-[14px] min-[825px]:text-[15px] text-left min-[825px]:text-center font-normal min-[825px]:mx-[20px] m-0">{prod.subtitle}</p>
                 </div>
 
                 <div
-                  className="ai-response"
+                  className="ai-response my-[5px] p-0 min-[825px]:px-[20px] max-h-[30vh] min-[825px]:max-h-none overflow-y-auto rounded-[10px] bg-white min-[825px]:bg-[rgb(250,252,250)]"
                   id={prod.wrapperId}
                   style={
                     expanded
@@ -187,7 +186,6 @@ export default function ProductSlider() {
                 >
                   <p
                     id={prod.queryId}
-                    className="show-ai-query"
                     style={{
                       opacity: userQuery ? 1 : 0,
                       display: userQuery ? "block" : "none",
@@ -214,13 +212,14 @@ export default function ProductSlider() {
                   </p>
                 </div>
 
-                <div className="service-discription">
+                <div className="flex justify-between mt-auto min-h-[54px]">
                   <input
                     enterKeyHint="send"
                     autoComplete="off"
                     type="text"
                     placeholder="Ask AI"
                     id={prod.inputId}
+                    className="px-[20px] min-[825px]:px-[40px] rounded-[10px] text-[16px] grow bg-white text-black border-[3px] border-white max-h-[50px] placeholder:font-bold focus:outline-none"
                     value={inputs[prod.id] || ""}
                     onChange={(e) =>
                       setInputs((prev) => ({ ...prev, [prod.id]: e.target.value }))
@@ -235,11 +234,11 @@ export default function ProductSlider() {
                     }}
                   />
                   <div
+                    className="ml-[10px] h-[40px] min-w-[40px] w-[40px] rounded-full flex justify-center items-center self-center opacity-80 hover:opacity-100 transition-all duration-300 bg-[#e5ffe5] border border-black cursor-pointer"
                     onClick={() => handleSend(prod)}
-                    style={{ cursor: "pointer" }}
                     title="Send message"
                   >
-                    <i className="bi bi-send"></i>
+                    <i className="bi bi-send text-[20px] mr-[5px] text-black rotate-45"></i>
                   </div>
                 </div>
               </div>
@@ -248,12 +247,12 @@ export default function ProductSlider() {
         })}
       </div>
 
-      <div className="scroll-project-container">
-        <div id="scroll-project-left" onClick={() => scroll("left")} role="button" aria-label="Scroll left">
-          <i className="bi bi-arrow-left"></i>
+      <div className="flex gap-[40px] justify-center mt-[30px]">
+        <div id="scroll-project-left" className="w-[40px] h-[40px] rounded-full flex items-center justify-center cursor-pointer transition-all duration-100 border-2 border-[#e5ffe5] hover:bg-[#e5ffe5]" onClick={() => scroll("left")} role="button" aria-label="Scroll left">
+          <i className="bi bi-arrow-left text-[20px]"></i>
         </div>
-        <div id="scroll-project-right" onClick={() => scroll("right")} role="button" aria-label="Scroll right">
-          <i className="bi bi-arrow-right"></i>
+        <div id="scroll-project-right" className="w-[40px] h-[40px] rounded-full flex items-center justify-center cursor-pointer transition-all duration-100 border-2 border-[#e5ffe5] hover:bg-[#e5ffe5]" onClick={() => scroll("right")} role="button" aria-label="Scroll right">
+          <i className="bi bi-arrow-right text-[20px]"></i>
         </div>
       </div>
     </>
